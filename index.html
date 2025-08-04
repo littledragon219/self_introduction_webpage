@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Synapse | A Blueprint of a Mind</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@sanity/client/dist/index.browser.js"></script>
+</head>
+<body class="bg-brand-background text-brand-text font-body overflow-hidden">
+
+    <main id="app-container" class="relative w-screen h-screen flex items-center justify-center">
+        <div id="graph-container" class="absolute inset-0 transition-all duration-700 ease-in-out"></div>
+        
+        <div id="intro-text" class="text-center text-brand-text/50 pointer-events-none transition-opacity duration-500">
+            <h1 class="text-2xl font-header font-bold text-brand-text">曾德荣</h1>
+            <p class="mt-2">身心合一的智造者。</p>
+            <p class="mt-1">点击探索我的思想蓝图。</p>
+        </div>
+
+        <div id="loading-indicator" class="text-center text-brand-text/50 pointer-events-none hidden">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent mx-auto mb-2"></div>
+            <p>加载思想蓝图中...</p>
+        </div>
+
+        <div id="card-container" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        </div>
+    </main>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
