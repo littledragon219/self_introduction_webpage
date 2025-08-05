@@ -14,6 +14,7 @@ export default function Home() {
 
   // 直接作为props传递
   const showCard = (content: any) => {
+    console.log('showCard 被调用，内容:', content);
     setCardContent(content);
     setCardVisible(true);
   };

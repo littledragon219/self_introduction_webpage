@@ -198,6 +198,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
 
   // 处理节点点击
   const handleNodeClick = (node: Node) => {
+    console.log('handleNodeClick', node);
     if (node.type === 'center') {
       // 展开第一级
       const newVisibleNodes = new Set(['center']);
@@ -233,9 +234,10 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     } else if (node.type === 'project' || node.type === 'experience') {
       // 处理项目/经历节点点击 - 显示详情卡片
       if (node.content) {
+        console.log('onNodeClick will be called with:', node.content);
         onNodeClick(node.content);
-        // 只用props回调，不再用window.dispatchEvent
-        // console.log('点击项目节点:', node.content); // 可选：保留调试
+      } else {
+        console.warn('Clicked node has no content:', node);
       }
     }
   };
