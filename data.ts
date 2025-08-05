@@ -37,48 +37,49 @@ export const projectData: ProjectData = {
     y: 0
   },
   
-  // 一级节点
-  categories: [
-    {
-      id: 'ai',
-      label: '深度学习',
-      type: 'category',
-      parent: 'center',
-      content: {
-        title: '深度学习',
-        summary: '专注于机器学习、计算机视觉和智能系统开发，包括深度残差学习、神经网络架构设计等前沿技术。',
-        role: '算法研究员',
-        techStack: ['PyTorch', 'TensorFlow', 'CNN', 'RNN', '计算机视觉'],
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop'
-      }
-    },
-    {
-      id: 'product',
-      label: '产品设计',
-      type: 'category',
-      parent: 'center',
-      content: {
-        title: '产品设计',
-        summary: '专注于用户体验设计、产品创新和交互设计，将技术能力与用户需求完美结合。',
-        role: '产品设计师',
-        techStack: ['Figma', '用户研究', '原型设计', '交互设计'],
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop'
-      }
-    },
-    {
-      id: 'embodied',
-      label: '具身智能',
-      type: 'category',
-      parent: 'center',
-      content: {
-        title: '具身智能',
-        summary: '探索身心合一的智能系统，将物理世界与数字世界融合，实现真正的智能交互。',
-        role: '具身智能研究员',
-        techStack: ['机器人学', '传感器融合', '物理交互', '智能控制'],
-        image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop'
-      }
-    }
-  ],
+    // 一级节点
+    categories: [
+        {
+            id: 'competition',
+            label: '赛事经历',
+            type: 'category',
+            parent: 'center',
+            content: {
+                title: '赛事经历',
+                summary: '活跃于课外活动。',
+                role: '课外活动积极分子',
+                techStack: ['舞龙', '工创大赛', '机器人竞赛', '大创'],
+                image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop'
+            }
+        },
+        {
+            id: 'work',
+            label: '工作实习经历',
+            type: 'category',
+            parent: 'center',
+            content: {
+                title: '工作实习经历',
+                summary: '不断摸索自己，在基层探索用户需求，将其与技术结合。',
+                role: '产品',
+                techStack: ['产品经理', '人力资源', '销售', '跨境电商'],
+                image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop'
+            }
+        },
+        {
+            id: 'embodied',
+            label: '具身智能',
+            type: 'category',
+            parent: 'center',
+            content: {
+                title: '具身智能',
+                summary: '探索身心合一的智能系统，将物理世界与数字世界融合，实现真正的智能交互。专注于机器学习、计算机视觉和智能系统开发，包括深度残差学习、神经网络架构设计等前沿技术',
+                role: '具身智能研究员',
+                techStack: ['机器人学', '传感器融合', '深度学习', '智能控制'],
+                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop'
+            }
+        }
+    ],
+    
   
     // 二级节点 - 项目
     projects: [
