@@ -15,17 +15,39 @@ export default function Home() {
   // 直接作为props传递
   const showCard = (content: any) => {
     console.log('showCard 被调用，内容:', content);
+    console.log('当前状态 - cardVisible:', cardVisible, 'cardContent:', cardContent);
     setCardContent(content);
     setCardVisible(true);
+    console.log('状态已更新 - cardVisible: true, cardContent:', content);
   };
 
   const hideCard = () => {
+    console.log('hideCard 被调用');
     setCardVisible(false);
     setCardContent(null);
   };
 
+  // 调试信息
+  console.log('渲染状态 - cardVisible:', cardVisible, 'cardContent:', cardContent);
+
   return (
     <div className="w-screen h-screen relative overflow-hidden">
+      {/* 测试按钮 - 仅用于调试 */}
+      <button 
+        onClick={() => {
+          console.log('测试按钮被点击');
+          showCard({
+            title: '测试卡片',
+            role: '测试角色',
+            summary: '这是一个测试卡片，用于调试弹窗显示问题。'
+          });
+        }}
+        className="fixed top-4 right-4 z-50 bg-red-500 text-white px-4 py-2 rounded"
+        style={{ zIndex: 9999 }}
+      >
+        测试弹窗
+      </button>
+
       {/* 认知突触背景 */}
       <div className="synapse-bg">
         {Array.from({ length: 12 }, (_, i) => (
@@ -49,7 +71,15 @@ export default function Home() {
 
       {/* 卡片容器 */}
       {cardVisible && cardContent && (
-        <div id="card-container" className="absolute inset-0 flex items-center justify-center z-40">
+        <div 
+          id="card-container" 
+          className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              hideCard();
+            }
+          }}
+        >
           <div className="card p-8 transform scale-100 transition-transform duration-300 pointer-events-auto">
             <div className="flex justify-between items-start mb-6">
               <h2 className="text-3xl font-bold" style={{ color: 'var(--primary-soft-white)' }}>

@@ -4,106 +4,112 @@
 
 /* 下面是自定义CSS */
 :root {
-  --primary-light-cyan: #E0FFFF;
-  --primary-soft-white: #F5F5F5;
-  --secondary-mint-blue: #A4DDEE;
-  --secondary-medium-gray-blue: #77AAB;
-  --accent-light-coral: #F08080;
-  --accent-lemon-yellow: #FFFACD;
-  --bg-dark: #0F172A;
-  --bg-medium: #1E293B;
-  --bg-light: #334155;
-  --fill-core: rgba(60, 110, 113, 0.5);
-  --fill-normal: rgba(60, 110, 113, 0.2);
+  --primary-light-cyan: #E0FFFF !important;
+  --primary-soft-white: #F5F5F5 !important;
+  --secondary-mint-blue: #A4DDEE !important;
+  --secondary-medium-gray-blue: #77AAB !important;
+  --accent-light-coral: #F08080 !important;
+  --accent-lemon-yellow: #FFFACD !important;
+  --bg-dark: #0F172A !important;
+  --bg-medium: #1E293B !important;
+  --bg-light: #334155 !important;
+  --fill-core: rgba(60, 110, 113, 0.5) !important;
+  --fill-normal: rgba(60, 110, 113, 0.2) !important;
 }
 
 body {
-  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 25%, var(--bg-light) 50%, #475569 75%, #64748B 100%);
-  color: var(--primary-soft-white);
-  font-family: 'Helvetica Neue', 'Arial', 'Roboto', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 25%, var(--bg-light) 50%, #475569 75%, #64748B 100%) !important;
+  color: var(--primary-soft-white) !important;
+  font-family: 'Helvetica Neue', 'Arial', 'Roboto', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
 
 .node {
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .node:hover {
-  transform: scale(1.15);
-  filter: drop-shadow(0 8px 16px rgba(66, 133, 244, 0.4));
+  transform: scale(1.15) !important;
+  filter: drop-shadow(0 8px 16px rgba(66, 133, 244, 0.4)) !important;
 }
 
 .node-text {
-  font-size: 12px;
-  font-weight: 600;
-  text-anchor: middle;
-  pointer-events: none;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-anchor: middle !important;
+  pointer-events: none !important;
 }
 
 .link {
-  stroke: #E2E8F0;
-  stroke-width: 2;
-  opacity: 0.6;
+  stroke: #E2E8F0 !important;
+  stroke-width: 2 !important;
+  opacity: 0.6 !important;
 }
 
 .card {
-  background: rgba(45, 58, 75, 0.85);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4);
-  max-width: 700px;
-  width: 90%;
-  max-height: 85vh;
-  overflow-y: auto;
-  border: 1px solid var(--primary-light-cyan);
-  scrollbar-width: thin;
-  scrollbar-color: rgba(224, 255, 255, 0.3) transparent;
+  background: rgba(45, 58, 75, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4) !important;
+  max-width: 700px !important;
+  width: 90% !important;
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+  border: 1px solid var(--primary-light-cyan) !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(224, 255, 255, 0.3) transparent !important;
+  /* 调试样式 */
+  position: relative !important;
+  z-index: 1000 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .card::-webkit-scrollbar {
-  width: 6px;
+  width: 6px !important;
 }
 
 .card::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent !important;
 }
 
 .card::-webkit-scrollbar-thumb {
-  background: rgba(66, 133, 244, 0.3);
-  border-radius: 3px;
+  background: rgba(66, 133, 244, 0.3) !important;
+  border-radius: 3px !important;
 }
 
 .card::-webkit-scrollbar-thumb:hover {
-  background: rgba(66, 133, 244, 0.5);
+  background: rgba(66, 133, 244, 0.5) !important;
 }
 
 .card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
+  width: 100% !important;
+  height: 200px !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
 }
 
 .tech-tag {
-  background: rgba(224, 255, 255, 0.1);
-  color: var(--primary-light-cyan);
-  padding: 8px 16px;
-  border-radius: 24px;
-  font-size: 13px;
-  font-weight: 600;
-  border: 1px solid rgba(224, 255, 255, 0.3);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-block;
+  background: rgba(224, 255, 255, 0.1) !important;
+  color: var(--primary-light-cyan) !important;
+  padding: 8px 16px !important;
+  border-radius: 24px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(224, 255, 255, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-block !important;
 }
 
 .tech-tag:hover {
-  background: rgba(224, 255, 255, 0.2);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 16px rgba(224, 255, 255, 0.3);
-  color: var(--primary-light-cyan);
+  background: rgba(224, 255, 255, 0.2) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 16px rgba(224, 255, 255, 0.3) !important;
+  color: var(--primary-light-cyan) !important;
 }
 
 /* 认知突触动画效果 */
@@ -149,9 +155,34 @@ body {
 .synapse-particle:nth-child(6) { top: 70%; left: 30%; animation-delay: 2.5s; }
 .synapse-particle:nth-child(7) { top: 30%; left: 70%; animation-delay: 0.5s; }
 .synapse-particle:nth-child(8) { top: 90%; left: 40%; animation-delay: 3.5s; }
-
-/* 添加更多粒子 */
 .synapse-particle:nth-child(9) { top: 15%; left: 60%; animation-delay: 0.8s; }
 .synapse-particle:nth-child(10) { top: 75%; left: 20%; animation-delay: 1.8s; }
 .synapse-particle:nth-child(11) { top: 85%; left: 60%; animation-delay: 2.8s; }
 .synapse-particle:nth-child(12) { top: 25%; left: 25%; animation-delay: 3.8s; }
+
+/* 弹窗调试样式 */
+#card-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#card-container .card {
+  position: relative !important;
+  z-index: 10000 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: auto !important;
+}
