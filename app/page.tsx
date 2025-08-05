@@ -1,7 +1,24 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import NetworkGraph from '../components/NetworkGraph';
+import dynamic from 'next/dynamic';
+
+// 动态导入NetworkGraph组件，禁用SSR
+const NetworkGraph = dynamic(
+  () => import('../components/NetworkGraph'),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="absolute inset-0 flex items-center justify-center z-20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-200 border-t-cyan-600 mx-auto mb-6"></div>
+          <p className="text-cyan-300 text-lg">加载认知突触中...</p>
+          <p className="text-cyan-400 text-sm mt-2">构建思想蓝图</p>
+        </div>
+      </div>
+    )
+  }
+);
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
