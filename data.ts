@@ -223,6 +223,79 @@ export const projectData: ProjectData = {
   ]
 };
 
+// 新的数据结构 - 按照用户指定的格式
+export interface NetworkNode {
+  id: string;
+  level: number;
+  contentKey?: string;
+  parentNode?: string;
+}
+
+export interface NetworkLink {
+  source: string;
+  target: string;
+}
+
+export interface NetworkData {
+  nodes: NetworkNode[];
+  links: NetworkLink[];
+}
+
+// 网络数据结构
+export const networkData: NetworkData = {
+  nodes: [
+    { id: "曾德荣", level: 0 },
+    { id: "人工智能", level: 1 },
+    { id: "机械工程", level: 1 },
+    { id: "领导力与协作", level: 1 },
+    { id: "智能无损抓取机械臂", level: 2, contentKey: "graspingArm", parentNode: "人工智能" },
+    { id: "风力发电机故障诊断", level: 2, contentKey: "windPower", parentNode: "人工智能" },
+    { id: "舞龙舞狮锦标赛", level: 2, contentKey: "dragonDance", parentNode: "领导力与协作" },
+    { id: "工创大赛", level: 2, contentKey: "bizSim", parentNode: "领导力与协作" }
+  ],
+  links: [
+    { source: "曾德荣", target: "人工智能" },
+    { source: "曾德荣", target: "机械工程" },
+    { source: "曾德荣", target: "领导力与协作" },
+    { source: "人工智能", target: "智能无损抓取机械臂" },
+    { source: "人工智能", target: "风力发电机故障诊断" },
+    { source: "领导力与协作", target: "舞龙舞狮锦标赛" },
+    { source: "领导力与协作", target: "工创大赛" }
+  ]
+};
+
+// 项目详细内容数据
+export const projectDetails = {
+  graspingArm: {
+    title: "智能无损抓取机械臂",
+    role: "项目负责人(智能算法开发设计)",
+    challenge: "传统工业机械臂在面对水果等易损、形态不一的物体时，极易造成损伤，泛化能力差。核心挑战在于如何让机械臂像人手一样，既\"心中有数\"（知道抓的是什么），又\"手下有谱\"（知道用多大力）。",
+    solution: "设计了创新的\"层级化原型网络\"，并结合\"零样本推理\"和\"少样本微调\"双模式。对于新水果，系统可直接进行零样本识别，极大提升了泛化能力和效率。",
+    outcome: "力控分辨率达到0.01N，实现了对多种水果的智能、无损抓取。在2025年大学生创新大赛校赛中荣获银奖。"
+  },
+  windPower: {
+    title: "风力发电机故障诊断与寿命预测",
+    role: "算法开发设计",
+    challenge: "风力发电机运行环境复杂，振动信号噪声大，传统方法难以准确识别故障模式和预测剩余寿命。",
+    solution: "采用深度学习与传统统计方法相结合的策略：使用自注意力机制处理长序列振动数据，设计LSTM网络进行特征提取和异常检测。",
+    outcome: "成功实现了对风力发电机故障的准确诊断和寿命预测，为工业设备维护提供了可靠的技术支持。"
+  },
+  dragonDance: {
+    title: "2024年第十六届中国大学生舞龙舞狮锦标赛",
+    role: "舞龙队校队队员",
+    challenge: "作为一名工科学生，我面临的是体能和艺术表现力的双重挑战。在高压的比赛环境下，团队一度陷入烦躁和失误的困境。",
+    solution: "通过每周数日的清晨集训和暑期的强化训练，与队友们互相鼓励，在教练的指导下重整旗鼓，将压力转化为动力。",
+    outcome: "在赛场上超常发挥，最终为学校赢得了全国季军的荣誉。这段经历磨练了我的意志力，更让我懂得了在高压下如何进行团队协作与情绪管理。"
+  },
+  bizSim: {
+    title: "2025年工创大赛虚拟仿真企业运营大赛",
+    role: "决策手",
+    challenge: "作为跨专业团队的一员，需要在金融、工商管理和机械工程三个不同专业背景之间协调，做出最优的企业运营决策。",
+    solution: "基于理工科思维对竞争公司的竞价、研发投入等综合预测判断，与金融专业同学的成本计算和工商管理同学的决策建议相结合。",
+    outcome: "在42队中脱颖而出进入校赛决赛，体现了跨专业协作和综合决策能力。"
+  }
+};
+
 // 添加新内容的模板
 export const contentTemplate = {
   // 项目模板

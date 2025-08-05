@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CognitiveSynapseGraph from '../components/CognitiveSynapseGraph';
+import NetworkGraph from '../components/NetworkGraph';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,25 +53,7 @@ export default function Home() {
         </p>
       </div>
 
-      {/* 测试按钮 - 用于调试 */}
-      <button 
-        onClick={() => {
-          console.log('测试按钮被点击');
-          showCard({
-            title: '智能无损抓取机械臂',
-            role: '项目负责人 (智能算法开发设计)',
-            summary: '研发"触觉感知-柔性控制-特征迁移"三位一体系统，配合树莓派主控与舵机协同，开发动态闭环力控算法实时感知物体，以0.01N的力控分辨率实现精准控制达到智能无损抓取。',
-            challenge: '传统工业机械臂在面对水果等易损、形态不一的物体时，极易造成损伤，泛化能力差。核心挑战在于如何让机械臂像人手一样，既"心中有数"（知道抓的是什么），又"手下有谱"（知道用多大力），并能快速适应未知物体。',
-            solution: '感知层: 搭建了包含力控传感器的硬件系统，配合树莓派主控，开发动态闭环力控算法，实时感知物体形变。决策层: 设计了创新的"层级化原型网络"，它包含两级分类：第一级进行"域分类"（如苹果、橘子），第二级在域内进行"子域分类"（如成熟、未成熟）。泛化层: 结合"零样本推理"和"少样本微调"双模式。对于新水果，系统可直接进行零样本识别，极大提升了泛化能力和效率。',
-            results: '成果: 力控分辨率达到0.01N，实现了对多种水果的智能、无损抓取。在2025年大学生创新大赛校赛中荣获银奖。反思: 这次经历让我深刻体会到，一个成功的智能产品是算法、硬件和用户场景的深度耦合。作为项目负责人，我不仅要设计算法，更要思考成本、可用性和未来的扩展性，这正是我对AI产品经理角色的初步探索。',
-            techStack: ['力控算法', '原型网络', '零样本推理', '树莓派', 'ROS', 'Python']
-          });
-        }}
-        className="fixed top-4 right-4 z-50 bg-red-500 text-white px-4 py-2 rounded"
-        style={{ zIndex: 9999 }}
-      >
-        测试弹窗
-      </button>
+
 
       {/* 技能树可视化 */}
       <div className="fixed bottom-8 left-8 z-40 pointer-events-none">
@@ -120,9 +102,9 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Canvas图形 */}
+      {/* 网络图形 */}
       <div className="absolute inset-0 z-20">
-        <CognitiveSynapseGraph onNodeClick={showCard} />
+        <NetworkGraph onNodeClick={showCard} />
       </div>
 
       {/* 加载指示器 */}
@@ -169,22 +151,7 @@ export default function Home() {
               </p>
             )}
 
-            {cardContent.summary && (
-              <div className="mb-6">
-                <h3 className="font-semibold mb-2 cyber-title">项目概述</h3>
-                <p className="leading-relaxed" style={{ color: 'var(--primary-soft-white)' }}>
-                  {cardContent.summary}
-                </p>
-              </div>
-            )}
 
-            {cardContent.image && (
-              <img
-                src={cardContent.image}
-                alt={cardContent.title}
-                className="card-image mb-6"
-              />
-            )}
 
             {cardContent.challenge && (
               <div className="mb-4 p-4 rounded-lg border-l-4" style={{ background: 'rgba(255, 250, 205, 0.1)', borderLeftColor: 'var(--accent-lemon-yellow)' }}>
@@ -200,25 +167,14 @@ export default function Home() {
               </div>
             )}
 
-            {cardContent.results && (
+            {cardContent.outcome && (
               <div className="mb-4 p-4 rounded-lg border-l-4" style={{ background: 'rgba(240, 128, 128, 0.1)', borderLeftColor: 'var(--accent-light-coral)' }}>
                 <h3 className="font-semibold mb-2" style={{ color: 'var(--accent-light-coral)' }}>成果与反思</h3>
-                <p style={{ color: 'var(--primary-soft-white)' }}>{cardContent.results}</p>
+                <p style={{ color: 'var(--primary-soft-white)' }}>{cardContent.outcome}</p>
               </div>
             )}
 
-            {cardContent.techStack && cardContent.techStack.length > 0 && (
-              <div className="mb-6">
-                <h3 className="font-semibold mb-3 cyber-title">
-                  技术栈
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {cardContent.techStack.map((tech: string, index: number) => (
-                    <span key={index} className="tech-tag">{tech}</span>
-                  ))}
-                </div>
-              </div>
-            )}
+
           </div>
         </div>
       )}
