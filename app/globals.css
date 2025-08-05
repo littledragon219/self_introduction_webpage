@@ -2,172 +2,156 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 下面是自定义CSS */
 :root {
-  --dark-background: #0a0a0f;
-  --dark-surface: #1a1a2e;
-  --dark-card: #16213e;
-  --accent-primary: #ff6b6b;
-  --accent-secondary: #4ecdc4;
-  --accent-tertiary: #45b7d1;
-  --text-primary: #ffffff;
-  --text-secondary: #b8b8b8;
-  --font-header: "Helvetica Neue", sans-serif;
-  --font-body: "Arial", sans-serif;
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.08 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.08 0 0);
-  --secondary: oklch(0.15 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.15 0 0);
-  --muted-foreground: oklch(0.7 0 0);
-  --accent: oklch(0.15 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.15 0 0);
-  --input: oklch(0.15 0 0);
-  --ring: oklch(0.4 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.08 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.985 0 0);
-  --sidebar-primary-foreground: oklch(0.08 0 0);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.15 0 0);
-  --sidebar-ring: oklch(0.4 0 0);
+  --primary-light-cyan: #E0FFFF;
+  --primary-soft-white: #F5F5F5;
+  --secondary-mint-blue: #A4DDEE;
+  --secondary-medium-gray-blue: #77AAB;
+  --accent-light-coral: #F08080;
+  --accent-lemon-yellow: #FFFACD;
+  --bg-dark: #0F172A;
+  --bg-medium: #1E293B;
+  --bg-light: #334155;
+  --fill-core: rgba(60, 110, 113, 0.5);
+  --fill-normal: rgba(60, 110, 113, 0.2);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
-    color: #ffffff;
-    min-height: 100vh;
-  }
+body {
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 25%, var(--bg-light) 50%, #475569 75%, #64748B 100%);
+  color: var(--primary-soft-white);
+  font-family: 'Helvetica Neue', 'Arial', 'Roboto', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-@layer utilities {
-  .font-header {
-    font-family: var(--font-header);
-  }
-
-  .font-body {
-    font-family: var(--font-body);
-  }
-
-  .bg-dark-background {
-    background-color: var(--dark-background);
-  }
-
-  .bg-dark-surface {
-    background-color: var(--dark-surface);
-  }
-
-  .bg-dark-card {
-    background-color: var(--dark-card);
-  }
-
-  .text-accent-primary {
-    color: var(--accent-primary);
-  }
-
-  .text-accent-secondary {
-    color: var(--accent-secondary);
-  }
-
-  .text-accent-tertiary {
-    color: var(--accent-tertiary);
-  }
-
-  .text-primary {
-    color: var(--text-primary);
-  }
-
-  .text-secondary {
-    color: var(--text-secondary);
-  }
-
-  .border-accent-primary {
-    border-color: var(--accent-primary);
-  }
-
-  .border-accent-secondary {
-    border-color: var(--accent-secondary);
-  }
-
-  .border-accent-tertiary {
-    border-color: var(--accent-tertiary);
-  }
-
-  .bg-accent-primary {
-    background-color: var(--accent-primary);
-  }
-
-  .bg-accent-secondary {
-    background-color: var(--accent-secondary);
-  }
-
-  .bg-accent-tertiary {
-    background-color: var(--accent-tertiary);
-  }
+.node {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Custom animations */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+.node:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 8px 16px rgba(66, 133, 244, 0.4));
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(255, 107, 107, 0.6);
-  }
+.node-text {
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+  pointer-events: none;
 }
 
-.floating {
-  animation: float 6s ease-in-out infinite;
+.link {
+  stroke: #E2E8F0;
+  stroke-width: 2;
+  opacity: 0.6;
 }
 
-.pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+.card {
+  background: rgba(45, 58, 75, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4);
+  max-width: 700px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  border: 1px solid var(--primary-light-cyan);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(224, 255, 255, 0.3) transparent;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
+.card::-webkit-scrollbar {
+  width: 6px;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--dark-surface);
+.card::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--accent-primary);
-  border-radius: 4px;
+.card::-webkit-scrollbar-thumb {
+  background: rgba(66, 133, 244, 0.3);
+  border-radius: 3px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-secondary);
+.card::-webkit-scrollbar-thumb:hover {
+  background: rgba(66, 133, 244, 0.5);
 }
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.tech-tag {
+  background: rgba(224, 255, 255, 0.1);
+  color: var(--primary-light-cyan);
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(224, 255, 255, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.tech-tag:hover {
+  background: rgba(224, 255, 255, 0.2);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(224, 255, 255, 0.3);
+  color: var(--primary-light-cyan);
+}
+
+/* 认知突触动画效果 */
+@keyframes synapse-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+@keyframes synapse-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1deg); }
+  50% { transform: translateY(-5px) rotate(-1deg); }
+  75% { transform: translateY(-15px) rotate(0.5deg); }
+}
+
+.synapse-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.synapse-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--primary-light-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary-light-cyan);
+  animation: synapse-pulse 4s ease-in-out infinite, synapse-float 8s ease-in-out infinite;
+  z-index: 5;
+}
+
+.synapse-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+.synapse-particle:nth-child(2) { top: 20%; left: 85%; animation-delay: 1s; }
+.synapse-particle:nth-child(3) { top: 60%; left: 10%; animation-delay: 2s; }
+.synapse-particle:nth-child(4) { top: 80%; left: 80%; animation-delay: 3s; }
+.synapse-particle:nth-child(5) { top: 40%; left: 50%; animation-delay: 1.5s; }
+.synapse-particle:nth-child(6) { top: 70%; left: 30%; animation-delay: 2.5s; }
+.synapse-particle:nth-child(7) { top: 30%; left: 70%; animation-delay: 0.5s; }
+.synapse-particle:nth-child(8) { top: 90%; left: 40%; animation-delay: 3.5s; }
+
+/* 添加更多粒子 */
+.synapse-particle:nth-child(9) { top: 15%; left: 60%; animation-delay: 0.8s; }
+.synapse-particle:nth-child(10) { top: 75%; left: 20%; animation-delay: 1.8s; }
+.synapse-particle:nth-child(11) { top: 85%; left: 60%; animation-delay: 2.8s; }
+.synapse-particle:nth-child(12) { top: 25%; left: 25%; animation-delay: 3.8s; }
