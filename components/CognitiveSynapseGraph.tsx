@@ -19,6 +19,10 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [links, setLinks] = useState<Link[]>([]);
 
+  // 调试初始状态
+  console.log('初始可见节点:', Array.from(visibleNodes));
+  console.log('初始展开节点:', Array.from(expandedNodes));
+
   // 初始化数据
   useEffect(() => {
     const allNodes: Node[] = [
@@ -26,6 +30,11 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
       ...projectData.categories.map(cat => ({ ...cat, radius: 50 })),
       ...projectData.projects.map(proj => ({ ...proj, radius: 40 }))
     ];
+    console.log('初始化节点数据:', allNodes.length, '个节点');
+    console.log('中心节点:', projectData.center);
+    console.log('分类节点:', projectData.categories.length, '个');
+    console.log('项目节点:', projectData.projects.length, '个');
+    
     setNodes(calculatePositions(allNodes));
     const allLinks: Link[] = [
       ...projectData.categories.map(cat => ({
@@ -37,6 +46,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
         return parent ? { source: parent, target: proj } : null;
       }).filter(Boolean) as Link[]
     ];
+    console.log('初始化连接数据:', allLinks.length, '个连接');
     setLinks(allLinks);
   }, []);
 
@@ -44,12 +54,15 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
   const calculatePositions = (nodes: Node[]) => {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
+    console.log('屏幕中心位置:', centerX, centerY);
+    
     const newNodes = nodes.map(node => ({ ...node }));
     // 中心节点
     const centerNode = newNodes.find(n => n.id === 'center');
     if (centerNode) {
       centerNode.x = centerX;
       centerNode.y = centerY;
+      console.log('中心节点位置:', centerNode.x, centerNode.y);
     }
     // 一级节点
     const categories = newNodes.filter(n => n.type === 'category');
@@ -59,6 +72,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
       const angle = index * angleStep;
       category.x = centerX + categoryRadius * Math.cos(angle);
       category.y = centerY + categoryRadius * Math.sin(angle);
+      console.log(`分类节点 ${category.id} 位置:`, category.x, category.y);
     });
     // 二级节点
     categories.forEach(category => {
@@ -70,6 +84,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
           const angle = index * projectAngleStep;
           project.x = category.x! + projectRadius * Math.cos(angle);
           project.y = category.y! + projectRadius * Math.sin(angle);
+          console.log(`项目节点 ${project.id} 位置:`, project.x, project.y);
         });
       }
     });
@@ -87,6 +102,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     // 设置Canvas尺寸
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    console.log('Canvas尺寸:', canvas.width, 'x', canvas.height);
 
     // 清空画布
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -122,7 +138,6 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
           const time = Date.now() * 0.001;
           const dashLength = 20;
           const dashGap = 10;
-          const totalLength = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
           const dashOffset = (time * 50) % (dashLength + dashGap);
           
           ctx.setLineDash([dashLength, dashGap]);
@@ -141,27 +156,49 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     });
 
     // 绘制节点 - 赛博义体风格
+    let renderedNodes = 0;
     nodes.forEach(node => {
       if (!visibleNodes.has(node.id)) return;
+      renderedNodes++;
       
       const x = node.x! + panOffset.x;
       const y = node.y! + panOffset.y;
       
+      // 根据节点类型设置不同的样式
+      let fillColor, strokeColor, glowIntensity;
+      
+      if (node.type === 'center') {
+        // 中心节点 - 最强发光效果
+        fillColor = 'rgba(0, 255, 65, 0.9)';
+        strokeColor = '#00FF41';
+        glowIntensity = 20;
+      } else if (node.type === 'category') {
+        // 分类节点 - 中等发光效果
+        fillColor = 'rgba(0, 255, 65, 0.6)';
+        strokeColor = '#00FF41';
+        glowIntensity = 15;
+      } else {
+        // 项目/经历节点 - 较弱发光效果
+        fillColor = 'rgba(0, 255, 65, 0.4)';
+        strokeColor = '#00FF41';
+        glowIntensity = 10;
+      }
+      
       // 节点发光效果
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, node.radius);
-      gradient.addColorStop(0, 'rgba(0, 255, 65, 0.8)');
-      gradient.addColorStop(0.7, 'rgba(0, 255, 65, 0.3)');
+      gradient.addColorStop(0, fillColor);
+      gradient.addColorStop(0.7, fillColor.replace('0.9', '0.3').replace('0.6', '0.2').replace('0.4', '0.1'));
       gradient.addColorStop(1, 'rgba(0, 255, 65, 0.1)');
       
       ctx.fillStyle = gradient;
       ctx.shadowColor = '#00FF41';
-      ctx.shadowBlur = 15;
+      ctx.shadowBlur = glowIntensity;
       ctx.beginPath();
       ctx.arc(x, y, node.radius, 0, 2 * Math.PI);
       ctx.fill();
       
       // 节点边框
-      ctx.strokeStyle = '#00FF41';
+      ctx.strokeStyle = strokeColor;
       ctx.lineWidth = 2;
       ctx.shadowBlur = 5;
       ctx.beginPath();
@@ -170,16 +207,34 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
       
       // 节点文字
       ctx.fillStyle = '#00FF41';
-      ctx.font = '12px Arial';
+      ctx.font = node.type === 'center' ? 'bold 14px Arial' : '12px Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.shadowColor = '#00FF41';
       ctx.shadowBlur = 3;
-      ctx.fillText(node.label, x, y);
+      
+      // 文字换行处理
+      const text = node.label.length > 8 ? node.label.substring(0, 8) + '...' : node.label;
+      ctx.fillText(text, x, y);
+      
+      // 为分类节点添加展开/收缩指示器
+      if (node.type === 'category') {
+        ctx.fillStyle = '#00FF41';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        if (expandedNodes.has(node.id)) {
+          ctx.fillText('-', x + node.radius - 8, y - node.radius + 8);
+        } else {
+          ctx.fillText('+', x + node.radius - 8, y - node.radius + 8);
+        }
+      }
       
       // 重置阴影
       ctx.shadowBlur = 0;
     });
+    console.log('渲染节点数量:', renderedNodes);
   };
 
   // 获取点击的节点
@@ -296,7 +351,11 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 cursor-grab"
-      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+      style={{ 
+        cursor: isDragging ? 'grabbing' : 'grab',
+        zIndex: 20,
+        pointerEvents: 'auto'
+      }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
