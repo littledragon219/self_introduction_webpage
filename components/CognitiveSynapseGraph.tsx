@@ -26,7 +26,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
       ...projectData.categories.map(cat => ({ ...cat, radius: 50 })),
       ...projectData.projects.map(proj => ({ ...proj, radius: 40 }))
     ];
-
+    setNodes(calculatePositions(allNodes));
     const allLinks: Link[] = [
       ...projectData.categories.map(cat => ({
         source: projectData.center,
@@ -37,41 +37,35 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
         return parent ? { source: parent, target: proj } : null;
       }).filter(Boolean) as Link[]
     ];
-
-    setNodes(allNodes);
     setLinks(allLinks);
   }, []);
 
-  // 计算节点位置
-  const calculatePositions = () => {
+  // 修正后的 calculatePositions
+  const calculatePositions = (nodes: Node[]) => {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
-    
+    const newNodes = nodes.map(node => ({ ...node }));
     // 中心节点
-    const centerNode = nodes.find(n => n.id === 'center');
+    const centerNode = newNodes.find(n => n.id === 'center');
     if (centerNode) {
       centerNode.x = centerX;
       centerNode.y = centerY;
     }
-
-    // 一级节点（分类）
-    const categories = nodes.filter(n => n.type === 'category');
+    // 一级节点
+    const categories = newNodes.filter(n => n.type === 'category');
     const categoryRadius = 200;
     const angleStep = (2 * Math.PI) / categories.length;
-    
     categories.forEach((category, index) => {
       const angle = index * angleStep;
       category.x = centerX + categoryRadius * Math.cos(angle);
       category.y = centerY + categoryRadius * Math.sin(angle);
     });
-
-    // 二级节点（项目）
+    // 二级节点
     categories.forEach(category => {
-      const projects = nodes.filter(n => n.parent === category.id);
+      const projects = newNodes.filter(n => n.parent === category.id);
       if (projects.length > 0) {
         const projectRadius = 150;
         const projectAngleStep = (2 * Math.PI) / projects.length;
-        
         projects.forEach((project, index) => {
           const angle = index * projectAngleStep;
           project.x = category.x! + projectRadius * Math.cos(angle);
@@ -79,6 +73,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
         });
       }
     });
+    return newNodes;
   };
 
   // 渲染Canvas
@@ -284,22 +279,25 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     setIsDragging(false);
   };
 
-  // 初始化和渲染
+  // 依赖 visibleNodes/expandedNodes/panOffset 时，重新计算坐标并渲染
   useEffect(() => {
-    calculatePositions();
+    if (nodes.length > 0) {
+      setNodes(calculatePositions(nodes));
+    }
     render();
-  }, [nodes, visibleNodes, expandedNodes, panOffset]);
+  }, [visibleNodes, expandedNodes, panOffset]);
 
   // 窗口大小变化处理
   useEffect(() => {
     const handleResize = () => {
-      calculatePositions();
+      if (nodes.length > 0) {
+        setNodes(calculatePositions(nodes));
+      }
       render();
     };
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [nodes]);
 
   return (
     <canvas
