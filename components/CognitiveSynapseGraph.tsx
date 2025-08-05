@@ -8,7 +8,7 @@ interface Link {
   target: Node;
 }
 
-export default function CognitiveSynapseGraph() {
+export default function CognitiveSynapseGraph({onNodeClick}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -240,6 +240,7 @@ export default function CognitiveSynapseGraph() {
     } else if (node.type === 'project' || node.type === 'experience') {
       // 处理项目/经历节点点击 - 显示详情卡片
       if (node.content) {
+        onNodeClick(node.content);
         // 这里需要触发显示卡片的逻辑
         // 由于这是Canvas组件，我们需要通过props传递回调函数
         console.log('点击项目节点:', node.content);
