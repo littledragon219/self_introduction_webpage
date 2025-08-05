@@ -215,7 +215,6 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
         const newExpandedNodes = new Set(expandedNodes);
         newExpandedNodes.delete(node.id);
         setExpandedNodes(newExpandedNodes);
-        
         const newVisibleNodes = new Set(visibleNodes);
         projectData.projects.forEach(proj => {
           if (proj.parent === node.id) {
@@ -228,7 +227,6 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
         const newExpandedNodes = new Set(expandedNodes);
         newExpandedNodes.add(node.id);
         setExpandedNodes(newExpandedNodes);
-        
         const newVisibleNodes = new Set(visibleNodes);
         projectData.projects.forEach(proj => {
           if (proj.parent === node.id) {
@@ -241,17 +239,8 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
       // 处理项目/经历节点点击 - 显示详情卡片
       if (node.content) {
         onNodeClick(node.content);
-      }
-    } else if (node.type === 'project' || node.type === 'experience') {
-      if (node.content) {
-        onNodeClick(node.content);
-        // 这里需要触发显示卡片的逻辑
-        // 由于这是Canvas组件，我们需要通过props传递回调函数
-        console.log('点击项目节点:', node.content);
-        // 可以通过自定义事件或者props回调来显示卡片
-        window.dispatchEvent(new CustomEvent('showNodeCard', { 
-          detail: node.content 
-        }));
+        // 只用props回调，不再用window.dispatchEvent
+        // console.log('点击项目节点:', node.content); // 可选：保留调试
       }
     }
   };
