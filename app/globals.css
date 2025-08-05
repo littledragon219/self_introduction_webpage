@@ -15,6 +15,14 @@
   --bg-light: #334155 !important;
   --fill-core: rgba(60, 110, 113, 0.5) !important;
   --fill-normal: rgba(60, 110, 113, 0.2) !important;
+  
+  /* 赛博义体风格新增变量 */
+  --cyber-neon-green: #00FF41 !important;
+  --cyber-neon-blue: #0080FF !important;
+  --cyber-purple: #8A2BE2 !important;
+  --cyber-pink: #FF0080 !important;
+  --cyber-glow: 0 0 20px !important;
+  --cyber-text-shadow: 0 0 10px !important;
 }
 
 body {
@@ -24,16 +32,56 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
+  position: relative !important;
+}
+
+/* 赛博义体背景图案 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 128, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 六边形网格背景 */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(30deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
+    linear-gradient(150deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
+    linear-gradient(30deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
+    linear-gradient(150deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
+    linear-gradient(60deg, rgba(0, 128, 255, 0.02) 25%, transparent 25.5%, transparent 75%, rgba(0, 128, 255, 0.02) 75%, rgba(0, 128, 255, 0.02)),
+    linear-gradient(60deg, rgba(0, 128, 255, 0.02) 25%, transparent 25.5%, transparent 75%, rgba(0, 128, 255, 0.02) 75%, rgba(0, 128, 255, 0.02));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .node {
   cursor: pointer !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  filter: drop-shadow(0 0 5px var(--cyber-neon-green)) !important;
 }
 
 .node:hover {
   transform: scale(1.15) !important;
-  filter: drop-shadow(0 8px 16px rgba(66, 133, 244, 0.4)) !important;
+  filter: drop-shadow(0 8px 16px rgba(0, 255, 65, 0.6)) !important;
+  box-shadow: 0 0 20px var(--cyber-neon-green) !important;
 }
 
 .node-text {
@@ -41,32 +89,49 @@ body {
   font-weight: 600 !important;
   text-anchor: middle !important;
   pointer-events: none !important;
+  text-shadow: 0 0 5px var(--cyber-neon-green) !important;
 }
 
 .link {
-  stroke: #E2E8F0 !important;
+  stroke: var(--cyber-neon-green) !important;
   stroke-width: 2 !important;
   opacity: 0.6 !important;
+  filter: drop-shadow(0 0 3px var(--cyber-neon-green)) !important;
+  animation: cyberPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes cyberPulse {
+  0%, 100% { opacity: 0.3; stroke-width: 2; }
+  50% { opacity: 0.8; stroke-width: 3; }
 }
 
 .card {
-  background: rgba(45, 58, 75, 0.85) !important;
-  backdrop-filter: blur(8px) !important;
+  background: rgba(45, 58, 75, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
   border-radius: 20px !important;
-  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 
+    0 32px 64px -12px rgba(0, 0, 0, 0.4) !important,
+    0 0 20px rgba(0, 255, 65, 0.3) !important,
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
   max-width: 700px !important;
   width: 90% !important;
   max-height: 85vh !important;
   overflow-y: auto !important;
-  border: 1px solid var(--primary-light-cyan) !important;
+  border: 2px solid var(--cyber-neon-green) !important;
   scrollbar-width: thin !important;
-  scrollbar-color: rgba(224, 255, 255, 0.3) transparent !important;
+  scrollbar-color: rgba(0, 255, 65, 0.3) transparent !important;
   /* 调试样式 */
   position: relative !important;
   z-index: 1000 !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
+  animation: cardGlow 3s ease-in-out infinite !important;
+}
+
+@keyframes cardGlow {
+  0%, 100% { box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 65, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+  50% { box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 65, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
 }
 
 .card::-webkit-scrollbar {
@@ -78,12 +143,12 @@ body {
 }
 
 .card::-webkit-scrollbar-thumb {
-  background: rgba(66, 133, 244, 0.3) !important;
+  background: rgba(0, 255, 65, 0.3) !important;
   border-radius: 3px !important;
 }
 
 .card::-webkit-scrollbar-thumb:hover {
-  background: rgba(66, 133, 244, 0.5) !important;
+  background: rgba(0, 255, 65, 0.5) !important;
 }
 
 .card-image {
@@ -91,31 +156,34 @@ body {
   height: 200px !important;
   object-fit: cover !important;
   border-radius: 8px !important;
+  border: 1px solid var(--cyber-neon-green) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3) !important;
 }
 
 .tech-tag {
-  background: rgba(224, 255, 255, 0.1) !important;
-  color: var(--primary-light-cyan) !important;
+  background: rgba(0, 255, 65, 0.1) !important;
+  color: var(--cyber-neon-green) !important;
   padding: 8px 16px !important;
   border-radius: 24px !important;
   font-size: 13px !important;
   font-weight: 600 !important;
-  border: 1px solid rgba(224, 255, 255, 0.3) !important;
+  border: 1px solid rgba(0, 255, 65, 0.3) !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
   display: inline-block !important;
+  text-shadow: 0 0 5px var(--cyber-neon-green) !important;
 }
 
 .tech-tag:hover {
-  background: rgba(224, 255, 255, 0.2) !important;
+  background: rgba(0, 255, 65, 0.2) !important;
   transform: translateY(-2px) scale(1.05) !important;
-  box-shadow: 0 8px 16px rgba(224, 255, 255, 0.3) !important;
-  color: var(--primary-light-cyan) !important;
+  box-shadow: 0 8px 16px rgba(0, 255, 65, 0.4) !important;
+  color: var(--cyber-neon-green) !important;
 }
 
 /* 认知突触动画效果 */
 @keyframes synapse-pulse {
   0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
 }
 
 @keyframes synapse-float {
@@ -140,9 +208,9 @@ body {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: var(--primary-light-cyan);
+  background: var(--cyber-neon-green);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--primary-light-cyan);
+  box-shadow: 0 0 8px var(--cyber-neon-green);
   animation: synapse-pulse 4s ease-in-out infinite, synapse-float 8s ease-in-out infinite;
   z-index: 5;
 }
@@ -167,7 +235,8 @@ body {
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -185,4 +254,110 @@ body {
   opacity: 1 !important;
   transform: scale(1) !important;
   pointer-events: auto !important;
+}
+
+/* 赛博义体风格标题 */
+.cyber-title {
+  color: var(--cyber-neon-green) !important;
+  text-shadow: 0 0 10px var(--cyber-neon-green) !important;
+  font-weight: bold !important;
+  letter-spacing: 1px !important;
+}
+
+/* 故障效果 */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.glitch-effect {
+  animation: glitch 0.3s ease-in-out infinite !important;
+}
+
+/* 数据流效果 */
+@keyframes dataStream {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.data-stream {
+  stroke-dasharray: 10 5;
+  animation: dataStream 3s linear infinite;
+}
+
+/* 全息投影效果 */
+.holographic {
+  background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 65, 0.1) 50%, transparent 70%) !important;
+  background-size: 200% 200% !important;
+  animation: holographic 3s ease-in-out infinite !important;
+}
+
+@keyframes holographic {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* 数据流动画 */
+@keyframes dataFlow {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+.data-flow {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyber-neon-green), transparent);
+  animation: dataFlow 3s linear infinite;
+  pointer-events: none;
+}
+
+/* 扫描线效果 */
+@keyframes scanLine {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyber-neon-green), transparent);
+  animation: scanLine 4s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* 脉冲效果 */
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.pulse-effect {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* 矩阵雨效果 */
+@keyframes matrixRain {
+  0% { transform: translateY(-100vh); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.matrix-rain {
+  position: fixed;
+  color: var(--cyber-neon-green);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  animation: matrixRain 3s linear infinite;
+  pointer-events: none;
+  z-index: 1;
 }

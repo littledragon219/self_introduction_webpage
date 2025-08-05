@@ -91,96 +91,94 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     // 清空画布
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 绘制连接线
-    ctx.strokeStyle = '#77AAB';
-    ctx.lineWidth = 1;
+    // 绘制连接线 - 赛博义体风格
+    ctx.strokeStyle = '#00FF41';
+    ctx.lineWidth = 2;
     ctx.globalAlpha = 0.6;
+    ctx.shadowColor = '#00FF41';
+    ctx.shadowBlur = 5;
 
     links.forEach(link => {
       const sourceVisible = visibleNodes.has(link.source.id);
       const targetVisible = visibleNodes.has(link.target.id);
       
       if (sourceVisible && targetVisible) {
-        const sourceX = link.source.x! + panOffset.x;
-        const sourceY = link.source.y! + panOffset.y;
-        const targetX = link.target.x! + panOffset.x;
-        const targetY = link.target.y! + panOffset.y;
+        const sourceNode = nodes.find(n => n.id === link.source.id);
+        const targetNode = nodes.find(n => n.id === link.target.id);
         
-        ctx.beginPath();
-        ctx.moveTo(sourceX, sourceY);
-        ctx.lineTo(targetX, targetY);
-        ctx.stroke();
+        if (sourceNode && targetNode) {
+          const startX = sourceNode.x! + panOffset.x;
+          const startY = sourceNode.y! + panOffset.y;
+          const endX = targetNode.x! + panOffset.x;
+          const endY = targetNode.y! + panOffset.y;
+          
+          // 绘制发光连接线
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(endX, endY);
+          ctx.stroke();
+          
+          // 添加数据流效果
+          const time = Date.now() * 0.001;
+          const dashLength = 20;
+          const dashGap = 10;
+          const totalLength = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+          const dashOffset = (time * 50) % (dashLength + dashGap);
+          
+          ctx.setLineDash([dashLength, dashGap]);
+          ctx.lineDashOffset = -dashOffset;
+          ctx.strokeStyle = '#00FF41';
+          ctx.globalAlpha = 0.3;
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(endX, endY);
+          ctx.stroke();
+          
+          ctx.setLineDash([]);
+          ctx.globalAlpha = 0.6;
+        }
       }
     });
 
-    ctx.globalAlpha = 1;
-
-    // 绘制节点
+    // 绘制节点 - 赛博义体风格
     nodes.forEach(node => {
       if (!visibleNodes.has(node.id)) return;
-
-      const adjustedX = node.x! + panOffset.x;
-      const adjustedY = node.y! + panOffset.y;
-
-      // 绘制节点圆圈
+      
+      const x = node.x! + panOffset.x;
+      const y = node.y! + panOffset.y;
+      
+      // 节点发光效果
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, node.radius);
+      gradient.addColorStop(0, 'rgba(0, 255, 65, 0.8)');
+      gradient.addColorStop(0.7, 'rgba(0, 255, 65, 0.3)');
+      gradient.addColorStop(1, 'rgba(0, 255, 65, 0.1)');
+      
+      ctx.fillStyle = gradient;
+      ctx.shadowColor = '#00FF41';
+      ctx.shadowBlur = 15;
       ctx.beginPath();
-      ctx.arc(adjustedX, adjustedY, node.radius!, 0, 2 * Math.PI);
-
-      if (node.type === 'center') {
-        // 核心节点
-        ctx.fillStyle = 'rgba(60, 110, 113, 0.5)';
-        ctx.fill();
-        ctx.strokeStyle = '#E0FFFF';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        
-        // 外发光效果
-        ctx.shadowColor = '#E0FFFF';
-        ctx.shadowBlur = 10;
-        ctx.stroke();
-        ctx.shadowColor = 'transparent';
-        ctx.shadowBlur = 0;
-      } else if (node.type === 'category') {
-        // 分类节点
-        ctx.fillStyle = 'rgba(60, 110, 113, 0.2)';
-        ctx.fill();
-        ctx.strokeStyle = '#77AAB';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // 绘制展开/收缩指示器
-        if (expandedNodes.has(node.id)) {
-          ctx.fillStyle = '#E0FFFF';
-          ctx.font = 'bold 16px Helvetica Neue, Arial, sans-serif';
-          ctx.fillText('-', adjustedX + node.radius! - 8, adjustedY - node.radius! + 8);
-        } else {
-          ctx.fillStyle = '#E0FFFF';
-          ctx.font = 'bold 16px Helvetica Neue, Arial, sans-serif';
-          ctx.fillText('+', adjustedX + node.radius! - 8, adjustedY - node.radius! + 8);
-        }
-      } else {
-        // 项目节点
-        ctx.fillStyle = 'rgba(60, 110, 113, 0.2)';
-        ctx.fill();
-        ctx.strokeStyle = '#77AAB';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      // 绘制文字
-      if (node.type === 'center') {
-        ctx.fillStyle = '#E0FFFF';
-        ctx.font = 'bold 14px Helvetica Neue, Arial, sans-serif';
-      } else {
-        ctx.fillStyle = '#A4DDEE';
-        ctx.font = 'normal 12px Helvetica Neue, Arial, sans-serif';
-      }
-
+      ctx.arc(x, y, node.radius, 0, 2 * Math.PI);
+      ctx.fill();
+      
+      // 节点边框
+      ctx.strokeStyle = '#00FF41';
+      ctx.lineWidth = 2;
+      ctx.shadowBlur = 5;
+      ctx.beginPath();
+      ctx.arc(x, y, node.radius, 0, 2 * Math.PI);
+      ctx.stroke();
+      
+      // 节点文字
+      ctx.fillStyle = '#00FF41';
+      ctx.font = '12px Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
+      ctx.shadowColor = '#00FF41';
+      ctx.shadowBlur = 3;
+      ctx.fillText(node.label, x, y);
       
-      const text = node.label.length > 8 ? node.label.substring(0, 8) + '...' : node.label;
-      ctx.fillText(text, adjustedX, adjustedY);
+      // 重置阴影
+      ctx.shadowBlur = 0;
     });
   };
 
@@ -198,7 +196,6 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
 
   // 处理节点点击
   const handleNodeClick = (node: Node) => {
-    console.log('handleNodeClick', node);
     if (node.type === 'center') {
       // 展开第一级
       const newVisibleNodes = new Set(['center']);
@@ -234,10 +231,7 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     } else if (node.type === 'project' || node.type === 'experience') {
       // 处理项目/经历节点点击 - 显示详情卡片
       if (node.content) {
-        console.log('onNodeClick will be called with:', node.content);
         onNodeClick(node.content);
-      } else {
-        console.warn('Clicked node has no content:', node);
       }
     }
   };
