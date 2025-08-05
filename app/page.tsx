@@ -9,23 +9,14 @@ export default function Home() {
   const [cardContent, setCardContent] = useState(null);
 
   useEffect(() => {
-    // 模拟加载过程
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    // 监听节点卡片显示事件
-    const handleShowCard = (event: CustomEvent) => {
-      setCardContent(event.detail);
-      setCardVisible(true);
-    };
-
-    window.addEventListener('showNodeCard', handleShowCard as EventListener);
-    
-    return () => {
-      window.removeEventListener('showNodeCard', handleShowCard as EventListener);
-    };
+    setTimeout(() => setIsLoading(false), 2000);
   }, []);
+
+  // 直接作为props传递
+  const showCard = (content: any) => {
+    setCardContent(content);
+    setCardVisible(true);
+  };
 
   const hideCard = () => {
     setCardVisible(false);
@@ -42,7 +33,7 @@ export default function Home() {
       </div>
 
       {/* Canvas图形 */}
-      <CognitiveSynapseGraph />
+      <CognitiveSynapseGraph onNodeClick={showCard} />
 
       {/* 加载指示器 */}
       {isLoading && (
@@ -63,7 +54,7 @@ export default function Home() {
               <h2 className="text-3xl font-bold" style={{ color: 'var(--primary-soft-white)' }}>
                 {cardContent.title}
               </h2>
-              <button 
+              <button
                 onClick={hideCard}
                 className="transition-colors p-2 rounded-full hover:bg-white/10"
                 style={{ color: 'var(--secondary-mint-blue)' }}
@@ -87,8 +78,8 @@ export default function Home() {
             )}
 
             {cardContent.image && (
-              <img 
-                src={cardContent.image} 
+              <img
+                src={cardContent.image}
                 alt={cardContent.title}
                 className="card-image mb-6"
               />
@@ -100,7 +91,7 @@ export default function Home() {
                   技术栈
                 </h3>
                 <div className="flex flex-wrap gap-3">
-                  {cardContent.techStack.map((tech, index) => (
+                  {cardContent.techStack.map((tech: string, index: number) => (
                     <span key={index} className="tech-tag">{tech}</span>
                   ))}
                 </div>
