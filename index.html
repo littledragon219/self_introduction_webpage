@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曾德荣 - 思想蓝图</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 自定义样式 -->
+    <style>
+        :root {
+            /* 主色调 */
+            --primary-light-cyan: #E0FFFF;
+            --primary-soft-white: #F5F5F5;
+            
+            /* 辅助色 */
+            --secondary-mint-blue: #A4DDEE;
+            --secondary-medium-gray-blue: #77AAB;
+            
+            /* 点缀色/高亮色 */
+            --accent-light-coral: #F08080;
+            --accent-lemon-yellow: #FFFACD;
+            
+            /* 背景色 */
+            --bg-dark: #0F172A;
+            --bg-medium: #1E293B;
+            --bg-light: #334155;
+            
+            /* 透明度填充 */
+            --fill-core: rgba(60, 110, 113, 0.5);
+            --fill-normal: rgba(60, 110, 113, 0.2);
+        }
+        
+        .text-brand-text {
+            color: var(--brand-text);
+        }
+        
+        .text-brand-accent {
+            color: var(--brand-accent);
+        }
+        
+        .bg-brand-background {
+            background-color: var(--brand-background);
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 25%, var(--bg-light) 50%, #475569 75%, #64748B 100%);
+            color: var(--primary-soft-white);
+            font-family: 'Helvetica Neue', 'Arial', 'Roboto', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #app {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(224, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(164, 221, 238, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(240, 128, 128, 0.04) 0%, transparent 50%),
+                linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 25%, var(--bg-light) 50%, #475569 75%, #64748B 100%);
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        #app::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(224, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(164, 221, 238, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(240, 128, 128, 0.06) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .node {
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .node:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 8px 16px rgba(66, 133, 244, 0.4));
+        }
+        
+        .node-text {
+            font-size: 12px;
+            font-weight: 600;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        
+        .link {
+            stroke: #E2E8F0;
+            stroke-width: 2;
+            opacity: 0.6;
+        }
+        
+        .card {
+            background: rgba(45, 58, 75, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4);
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid var(--primary-light-cyan);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(224, 255, 255, 0.3) transparent;
+        }
+        
+        .card::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .card::-webkit-scrollbar-thumb {
+            background: rgba(66, 133, 244, 0.3);
+            border-radius: 3px;
+        }
+        
+        .card::-webkit-scrollbar-thumb:hover {
+            background: rgba(66, 133, 244, 0.5);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .tech-tag {
+            background: rgba(224, 255, 255, 0.1);
+            color: var(--primary-light-cyan);
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(224, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        
+        .tech-tag:hover {
+            background: rgba(224, 255, 255, 0.2);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(224, 255, 255, 0.3);
+            color: var(--primary-light-cyan);
+        }
+        
+        /* 认知突触动画效果 */
+        @keyframes synapse-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        
+        @keyframes synapse-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(1deg); }
+            50% { transform: translateY(-5px) rotate(-1deg); }
+            75% { transform: translateY(-15px) rotate(0.5deg); }
+        }
+        
+        .synapse-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .synapse-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-light-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-light-cyan);
+            animation: synapse-pulse 4s ease-in-out infinite, synapse-float 8s ease-in-out infinite;
+            z-index: 5;
+        }
+        
+        .synapse-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+        .synapse-particle:nth-child(2) { top: 20%; left: 85%; animation-delay: 1s; }
+        .synapse-particle:nth-child(3) { top: 60%; left: 10%; animation-delay: 2s; }
+        .synapse-particle:nth-child(4) { top: 80%; left: 80%; animation-delay: 3s; }
+        .synapse-particle:nth-child(5) { top: 40%; left: 50%; animation-delay: 1.5s; }
+        .synapse-particle:nth-child(6) { top: 70%; left: 30%; animation-delay: 2.5s; }
+        .synapse-particle:nth-child(7) { top: 30%; left: 70%; animation-delay: 0.5s; }
+        .synapse-particle:nth-child(8) { top: 90%; left: 40%; animation-delay: 3.5s; }
+        
+        /* 添加更多粒子 */
+        .synapse-particle:nth-child(9) { top: 15%; left: 60%; animation-delay: 0.8s; }
+        .synapse-particle:nth-child(10) { top: 75%; left: 20%; animation-delay: 1.8s; }
+        .synapse-particle:nth-child(11) { top: 85%; left: 60%; animation-delay: 2.8s; }
+        .synapse-particle:nth-child(12) { top: 25%; left: 25%; animation-delay: 3.8s; }
+    </style>
+</head>
+<body>
+    <!-- 主容器 -->
+    <div id="app" class="w-screen h-screen relative">
+        <!-- 认知突触背景 -->
+        <div class="synapse-bg">
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+            <div class="synapse-particle"></div>
+        </div>
+        
+        <!-- 图形容器 -->
+        <div id="graph-container" class="absolute inset-0 z-10"></div>
+        
+        <!-- 介绍文字 -->
+        <div id="intro-text" class="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold text-cyan-200 mb-4 drop-shadow-lg" style="color: var(--primary-light-cyan);">曾德荣</h1>
+                <p class="text-2xl mb-3" style="color: var(--secondary-mint-blue);">身心合一的智造者</p>
+                <p class="text-lg" style="color: var(--secondary-medium-gray-blue);">点击探索我的思想蓝图</p>
+                <div class="mt-8">
+                    <div class="w-20 h-1 mx-auto rounded-full shadow-lg" style="background: linear-gradient(to right, var(--primary-light-cyan), var(--secondary-mint-blue));"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 加载指示器 -->
+        <div id="loading" class="absolute inset-0 flex items-center justify-center bg-white/90 backdrop-blur-sm z-30">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-200 border-t-blue-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg">加载认知突触中...</p>
+                <p class="text-gray-400 text-sm mt-2">构建思想蓝图</p>
+            </div>
+        </div>
+        
+        <!-- 卡片容器 -->
+        <div id="card-container" class="absolute inset-0 flex items-center justify-center pointer-events-none z-40"></div>
+    </div>
+
+    <!-- 数据 -->
+    <script src="data.js"></script>
+    <!-- 主逻辑 -->
+    <script src="app.js"></script>
+</body>
+</html>
