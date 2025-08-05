@@ -279,15 +279,12 @@ export default function CognitiveSynapseGraph({onNodeClick}) {
     setIsDragging(false);
   };
 
-  // 依赖 visibleNodes/expandedNodes/panOffset 时，重新计算坐标并渲染
+  // 依赖 visibleNodes/expandedNodes/panOffset/nodes 时，只 render，不 setNodes
   useEffect(() => {
-    if (nodes.length > 0) {
-      setNodes(calculatePositions(nodes));
-    }
     render();
-  }, [visibleNodes, expandedNodes, panOffset]);
+  }, [visibleNodes, expandedNodes, panOffset, nodes]);
 
-  // 窗口大小变化处理
+  // 只在窗口resize时 setNodes
   useEffect(() => {
     const handleResize = () => {
       if (nodes.length > 0) {
