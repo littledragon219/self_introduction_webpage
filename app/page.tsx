@@ -1,33 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState, useEffect } from 'react';
+import NetworkGraph from '../components/NetworkGraph';
 
-// 动态导入NetworkGraph组件，禁用SSR
-const NetworkGraph = dynamic(
-  () => import('../components/NetworkGraph'),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="absolute inset-0 flex items-center justify-center z-20">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-200 border-t-cyan-600 mx-auto mb-6"></div>
-          <p className="text-cyan-300 text-lg">加载认知突触中...</p>
-          <p className="text-cyan-400 text-sm mt-2">构建思想蓝图</p>
-        </div>
-      </div>
-    )
-  }
-);
-
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
+export default function HomePage() {
+  // 1. 创建一个状态，用来判断是否在浏览器环境
+  const [isBrowser, setIsBrowser] = useState(false);
   const [cardVisible, setCardVisible] = useState(false);
   const [cardContent, setCardContent] = useState(null);
 
+  // 2. 使用useEffect，这个钩子只会在浏览器中运行
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
-  }, []);
+    // 当组件加载到浏览器后，将状态设为 true
+    setIsBrowser(true);
+  }, []); // 空数组确保这个effect只运行一次
 
   // 直接作为props传递
   const showCard = (content: any) => {
@@ -119,13 +105,13 @@ export default function Home() {
         ))}
       </div>
 
-      {/* 网络图形 */}
+      {/* 网络图形 - 只在浏览器中渲染 */}
       <div className="absolute inset-0 z-20">
-        <NetworkGraph onNodeClick={showCard} />
+        {isBrowser && <NetworkGraph onNodeClick={showCard} />}
       </div>
 
-      {/* 加载指示器 */}
-      {isLoading && (
+      {/* 加载指示器 - 当不在浏览器中时显示 */}
+      {!isBrowser && (
         <div id="loading" className="absolute inset-0 flex items-center justify-center bg-black/90 backdrop-blur-sm z-30">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-200 border-t-cyan-600 mx-auto mb-6"></div>
