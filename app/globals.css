@@ -2,40 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 下面是自定义CSS */
+/* 人文科技主义风格 - 浅色模式 */
 :root {
-  --primary-light-cyan: #E0FFFF !important;
-  --primary-soft-white: #F5F5F5 !important;
-  --secondary-mint-blue: #A4DDEE !important;
-  --secondary-medium-gray-blue: #77AAB !important;
-  --accent-light-coral: #F08080 !important;
-  --accent-lemon-yellow: #FFFACD !important;
-  --bg-dark: #0F172A !important;
-  --bg-medium: #1E293B !important;
-  --bg-light: #334155 !important;
-  --fill-core: rgba(60, 110, 113, 0.5) !important;
-  --fill-normal: rgba(60, 110, 113, 0.2) !important;
-  
-  /* 赛博义体风格新增变量 */
-  --cyber-neon-green: #00FF41 !important;
-  --cyber-neon-blue: #0080FF !important;
-  --cyber-purple: #8A2BE2 !important;
-  --cyber-pink: #FF0080 !important;
-  --cyber-glow: 0 0 20px !important;
-  --cyber-text-shadow: 0 0 10px !important;
+  /* 主色 - 云朵白 */
+  --primary-white: #F8F9FA;
+  /* 辅色 - 炭黑 */
+  --secondary-black: #212529;
+  /* 高亮/行动色 - 信号蓝 */
+  --accent-blue: #007BFF;
+  /* 背景色 */
+  --bg-light: #FFFFFF;
+  --bg-soft: #F8F9FA;
+  --bg-card: #FFFFFF;
+  /* 文字色 */
+  --text-primary: #212529;
+  --text-secondary: #6C757D;
+  --text-muted: #ADB5BD;
+  /* 边框色 */
+  --border-light: #E9ECEF;
+  --border-medium: #DEE2E6;
+  /* 阴影 */
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.16);
 }
+
+/* 字体设置 */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 body {
-  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 25%, var(--bg-light) 50%, #475569 75%, #64748B 100%) !important;
-  color: var(--primary-soft-white) !important;
-  font-family: 'Helvetica Neue', 'Arial', 'Roboto', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  position: relative !important;
+  background: var(--bg-light);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
-/* 赛博义体背景图案 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+/* 现代建筑风格的背景图案 */
 body::before {
   content: '';
   position: fixed;
@@ -44,320 +56,207 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(0, 128, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(0, 123, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 123, 255, 0.02) 0%, transparent 50%),
+    linear-gradient(45deg, transparent 48%, rgba(0, 123, 255, 0.01) 50%, transparent 52%);
   pointer-events: none;
   z-index: -1;
 }
 
-/* 六边形网格背景 */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(30deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
-    linear-gradient(150deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
-    linear-gradient(30deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
-    linear-gradient(150deg, rgba(0, 255, 65, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 65, 0.03) 87.5%, rgba(0, 255, 65, 0.03)),
-    linear-gradient(60deg, rgba(0, 128, 255, 0.02) 25%, transparent 25.5%, transparent 75%, rgba(0, 128, 255, 0.02) 75%, rgba(0, 128, 255, 0.02)),
-    linear-gradient(60deg, rgba(0, 128, 255, 0.02) 25%, transparent 25.5%, transparent 75%, rgba(0, 128, 255, 0.02) 75%, rgba(0, 128, 255, 0.02));
-  background-size: 80px 140px;
-  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-  pointer-events: none;
-  z-index: -1;
-}
-
+/* 网络图节点样式 */
 .node {
-  cursor: pointer !important;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  filter: drop-shadow(0 0 5px var(--cyber-neon-green)) !important;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .node:hover {
-  transform: scale(1.15) !important;
-  filter: drop-shadow(0 8px 16px rgba(0, 255, 65, 0.6)) !important;
-  box-shadow: 0 0 20px var(--cyber-neon-green) !important;
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 123, 255, 0.2));
 }
 
 .node-text {
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  text-anchor: middle !important;
-  pointer-events: none !important;
-  text-shadow: 0 0 5px var(--cyber-neon-green) !important;
+  font-size: 12px;
+  font-weight: 500;
+  text-anchor: middle;
+  pointer-events: none;
+  fill: var(--text-primary);
+  font-family: 'Inter', sans-serif;
 }
 
+/* 连接线样式 */
 .link {
-  stroke: var(--cyber-neon-green) !important;
-  stroke-width: 2 !important;
-  opacity: 0.6 !important;
-  filter: drop-shadow(0 0 3px var(--cyber-neon-green)) !important;
-  animation: cyberPulse 2s ease-in-out infinite !important;
+  stroke: var(--accent-blue);
+  stroke-width: 2;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
 }
 
-@keyframes cyberPulse {
-  0%, 100% { opacity: 0.3; stroke-width: 2; }
-  50% { opacity: 0.8; stroke-width: 3; }
+.link:hover {
+  opacity: 0.8;
 }
 
+/* 卡片样式 */
 .card {
-  background: rgba(45, 58, 75, 0.95) !important;
-  backdrop-filter: blur(12px) !important;
-  border-radius: 20px !important;
-  box-shadow: 
-    0 32px 64px -12px rgba(0, 0, 0, 0.4) !important,
-    0 0 20px rgba(0, 255, 65, 0.3) !important,
-    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-  max-width: 700px !important;
-  width: 90% !important;
-  max-height: 85vh !important;
-  overflow-y: auto !important;
-  border: 2px solid var(--cyber-neon-green) !important;
-  scrollbar-width: thin !important;
-  scrollbar-color: rgba(0, 255, 65, 0.3) transparent !important;
-  /* 调试样式 */
-  position: relative !important;
-  z-index: 1000 !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  animation: cardGlow 3s ease-in-out infinite !important;
-}
-
-@keyframes cardGlow {
-  0%, 100% { box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 65, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
-  50% { box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 65, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--border-light);
+  max-width: 700px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) transparent;
 }
 
 .card::-webkit-scrollbar {
-  width: 6px !important;
+  width: 6px;
 }
 
 .card::-webkit-scrollbar-track {
-  background: transparent !important;
+  background: transparent;
 }
 
 .card::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 65, 0.3) !important;
-  border-radius: 3px !important;
+  background: var(--border-medium);
+  border-radius: 3px;
 }
 
 .card::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 255, 65, 0.5) !important;
+  background: var(--text-muted);
 }
 
-.card-image {
-  width: 100% !important;
-  height: 200px !important;
-  object-fit: cover !important;
-  border-radius: 8px !important;
-  border: 1px solid var(--cyber-neon-green) !important;
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3) !important;
-}
-
+/* 技术标签样式 */
 .tech-tag {
-  background: rgba(0, 255, 65, 0.1) !important;
-  color: var(--cyber-neon-green) !important;
-  padding: 8px 16px !important;
-  border-radius: 24px !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  border: 1px solid rgba(0, 255, 65, 0.3) !important;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  display: inline-block !important;
-  text-shadow: 0 0 5px var(--cyber-neon-green) !important;
+  background: rgba(0, 123, 255, 0.1);
+  color: var(--accent-blue);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(0, 123, 255, 0.2);
+  transition: all 0.3s ease;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
 }
 
 .tech-tag:hover {
-  background: rgba(0, 255, 65, 0.2) !important;
-  transform: translateY(-2px) scale(1.05) !important;
-  box-shadow: 0 8px 16px rgba(0, 255, 65, 0.4) !important;
-  color: var(--cyber-neon-green) !important;
+  background: rgba(0, 123, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
 }
 
-/* 认知突触动画效果 */
-@keyframes synapse-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.1); }
+/* 按钮样式 */
+.btn-primary {
+  background: var(--accent-blue);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
 }
 
-@keyframes synapse-float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-10px) rotate(1deg); }
-  50% { transform: translateY(-5px) rotate(-1deg); }
-  75% { transform: translateY(-15px) rotate(0.5deg); }
+.btn-primary:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
 }
 
-.synapse-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-blue);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: 1px solid var(--accent-blue);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
 }
 
-.synapse-particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--cyber-neon-green);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--cyber-neon-green);
-  animation: synapse-pulse 4s ease-in-out infinite, synapse-float 8s ease-in-out infinite;
-  z-index: 5;
+.btn-secondary:hover {
+  background: rgba(0, 123, 255, 0.05);
+  transform: translateY(-1px);
 }
 
-.synapse-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
-.synapse-particle:nth-child(2) { top: 20%; left: 85%; animation-delay: 1s; }
-.synapse-particle:nth-child(3) { top: 60%; left: 10%; animation-delay: 2s; }
-.synapse-particle:nth-child(4) { top: 80%; left: 80%; animation-delay: 3s; }
-.synapse-particle:nth-child(5) { top: 40%; left: 50%; animation-delay: 1.5s; }
-.synapse-particle:nth-child(6) { top: 70%; left: 30%; animation-delay: 2.5s; }
-.synapse-particle:nth-child(7) { top: 30%; left: 70%; animation-delay: 0.5s; }
-.synapse-particle:nth-child(8) { top: 90%; left: 40%; animation-delay: 3.5s; }
-.synapse-particle:nth-child(9) { top: 15%; left: 60%; animation-delay: 0.8s; }
-.synapse-particle:nth-child(10) { top: 75%; left: 20%; animation-delay: 1.8s; }
-.synapse-particle:nth-child(11) { top: 85%; left: 60%; animation-delay: 2.8s; }
-.synapse-particle:nth-child(12) { top: 25%; left: 25%; animation-delay: 3.8s; }
-
-/* 弹窗调试样式 */
-#card-container {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(0, 0, 0, 0.7) !important;
-  backdrop-filter: blur(8px) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 9999 !important;
-  pointer-events: auto !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+/* 导航样式 */
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  font-family: 'Inter', sans-serif;
 }
 
-#card-container .card {
-  position: relative !important;
-  z-index: 10000 !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  transform: scale(1) !important;
-  pointer-events: auto !important;
+.nav-link:hover {
+  color: var(--accent-blue);
 }
 
-/* 赛博义体风格标题 */
-.cyber-title {
-  color: var(--cyber-neon-green) !important;
-  text-shadow: 0 0 10px var(--cyber-neon-green) !important;
-  font-weight: bold !important;
-  letter-spacing: 1px !important;
+.nav-link.active {
+  color: var(--accent-blue);
 }
 
-/* 故障效果 */
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+/* 加载动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.glitch-effect {
-  animation: glitch 0.3s ease-in-out infinite !important;
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
 }
 
-/* 数据流效果 */
-@keyframes dataStream {
-  0% { stroke-dashoffset: 1000; }
-  100% { stroke-dashoffset: 0; }
-}
-
-.data-stream {
-  stroke-dasharray: 10 5;
-  animation: dataStream 3s linear infinite;
-}
-
-/* 全息投影效果 */
-.holographic {
-  background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 65, 0.1) 50%, transparent 70%) !important;
-  background-size: 200% 200% !important;
-  animation: holographic 3s ease-in-out infinite !important;
-}
-
-@keyframes holographic {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* 数据流动画 */
-@keyframes dataFlow {
-  0% { transform: translateX(-100%); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-
-.data-flow {
-  position: absolute;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cyber-neon-green), transparent);
-  animation: dataFlow 3s linear infinite;
-  pointer-events: none;
-}
-
-/* 扫描线效果 */
-@keyframes scanLine {
-  0% { transform: translateY(-100vh); }
-  100% { transform: translateY(100vh); }
-}
-
-.scan-line {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cyber-neon-green), transparent);
-  animation: scanLine 4s linear infinite;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* 脉冲效果 */
+/* 脉冲动画 */
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-.pulse-effect {
+.pulse {
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* 矩阵雨效果 */
-@keyframes matrixRain {
-  0% { transform: translateY(-100vh); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
+/* 滑入动画 */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
 }
 
-.matrix-rain {
-  position: fixed;
-  color: var(--cyber-neon-green);
-  font-family: 'Courier New', monospace;
-  font-size: 12px;
-  animation: matrixRain 3s linear infinite;
-  pointer-events: none;
-  z-index: 1;
+.slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .card {
+    width: 95%;
+    margin: 0 10px;
+  }
+  
+  .node-text {
+    font-size: 10px;
+  }
+}
+
+/* 无障碍设计 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --border-light: #000000;
+  }
 }
